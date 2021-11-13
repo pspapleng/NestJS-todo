@@ -6,9 +6,9 @@ import { configService } from './config/config.service';
 
 @Module({
   imports: [
-   TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig())
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
