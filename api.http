@@ -1,1 +1,13 @@
 GET http://localhost:3000/
+
+### get all items
+GET http://localhost:3000/item
+
+### create a new item
+POST http://localhost:3000/item
+Content-Type: application/json
+
+{
+  "name": "hello",
+  "description":"world"
+}
