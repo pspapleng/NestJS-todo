@@ -1,0 +1,15 @@
+### get all members
+GET http://localhost:3000/members
+
+### get by username
+GET http://localhost:3000/members/hello1
+
+### create a new member
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+  "name": "hello world",
+  "username":"hello1",
+  "password": "hello11111"
+}

@@ -1,15 +1,17 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 class ConfigService {
-  constructor(private env: { [k: string]: string | undefined }) {}
+  constructor(private env: { [k: string]: string | undefined }) { }
 
   private getValue(key: string, throwOnMissing = true): string {
     const value = this.env[key];
     if (!value && throwOnMissing) {
       throw new Error(`config error - missing env.${key}`);
     }
+
     return value;
   }
 
@@ -27,8 +29,11 @@ class ConfigService {
     return mode != 'DEV';
   }
 
-  public getTypeOrmConfig(): TypeOrmModuleOptions {
+  public getSecret() {
+    return 'MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgH+9kFPdeZ7lKHaLP4+DEIYNw7b2E4o2b3gyIxjlGsjvWiymQ3PkOZZhENr6MtUkNph9OyVWnmA1wsYkzUXxCZsvPFgD5DLtJ0X';
+  }
 
+  public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
       type: 'postgres',
 
@@ -37,13 +42,17 @@ class ConfigService {
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
-      entities: ['**/*.entity{.ts,.js}'],
+
+      entities: ['src/**/*.entity{.ts,.js}'],
 
       migrationsTableName: 'migration',
+
       migrations: ['src/migration/*.ts'],
+
       cli: {
         migrationsDir: 'src/migration',
       },
+
       ssl: this.isProduction(),
     };
   }

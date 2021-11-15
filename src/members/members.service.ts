@@ -1,0 +1,34 @@
+import { configService } from '../config/config.service';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { AES } from 'crypto-js';
+import { Members } from '../model/members.entity';
+import { MembersDTO } from './members.dto';
+
+@Injectable()
+export class MembersService {
+    constructor(
+        @InjectRepository(Members) private readonly repo: Repository<Members>
+    ) { }
+
+    public async getAll() {
+        return await this.repo.find().then((e) => e.map((member) => MembersDTO.fromEntity(member)));
+    }
+
+    public async getByUsername(username: string) {
+        return await this.repo.findOne({
+            where: {
+                username,
+            },
+        }).then((e) => MembersDTO.fromEntity(e))
+    }
+
+    public async create(dto: MembersDTO): Promise<MembersDTO> {
+        dto.password = AES.encrypt(
+            dto.password,
+            configService.getSecret(),
+        ).toString();
+        return this.repo.save(dto.toEntity()).then((e) => MembersDTO.fromEntity(e));
+    }
+}
