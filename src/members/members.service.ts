@@ -13,7 +13,7 @@ export class MembersService {
     ) { }
 
     public async getAll() {
-        return await this.repo.find();
+        return await this.repo.find().then((e) => e.map((member) => MembersDTO.fromEntity(member)));
     }
 
     public async getByUsername(username: string) {
@@ -21,7 +21,7 @@ export class MembersService {
             where: {
                 username,
             },
-        });
+        }).then((e) => MembersDTO.fromEntity(e))
     }
 
     public async create(dto: MembersDTO): Promise<MembersDTO> {

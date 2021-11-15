@@ -10,6 +10,6 @@ Content-Type: application/json
 
 {
   "name": "hello world",
-  "username":"hello4",
-  "password": "hello55555"
+  "username":"hello1",
+  "password": "hello11111"
 }
