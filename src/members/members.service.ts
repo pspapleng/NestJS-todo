@@ -21,7 +21,7 @@ export class MembersService {
             where: {
                 username,
             },
-        }).then((e) => MembersDTO.fromEntity(e))
+        })
     }
 
     public async create(dto: MembersDTO): Promise<MembersDTO> {
