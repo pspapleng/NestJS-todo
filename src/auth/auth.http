@@ -6,3 +6,7 @@ Content-Type: application/json
   "username":"hello1",
   "password": "hello11111"
 }
+
+### get user by x-member-token header
+GET http://localhost:3000/auth/profile
+x-member-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbGxvMSIsImlhdCI6MTYzNzA4NDY3MCwiZXhwIjoxNjM3Njg5NDcwfQ.ajyiFZLUCkNy9oyFKFRLTEgR2dtq4ygs08Id7j8X35w
