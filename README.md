@@ -22,8 +22,8 @@
 
 - [x] Only member can create new todo with **not_started** status.
 - [x] Every member can list **existing** todo.
-- [ ] Only todo **owner** can update their **title** and **description**.
-- [ ] Only todo **owner** can change status.
+- [x] Only todo **owner** can update their **title** and **description**.
+- [x] Only todo **owner** can change status.
 - [ ] Only todo **owner** can delete todo(soft delete).
 - [ ] Only todo **owner** can assign todo to member.
 - [ ] Send notification to all assigned member when **owner** delete **active** todo.
