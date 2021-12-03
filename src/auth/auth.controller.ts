@@ -1,21 +1,43 @@
-import { Controller, Request, Post, Get, UseGuards } from '@nestjs/common';
+import { JWTPayload } from './jwt.strategy';
+import { JwtAuthGuard } from './../jwt-auth.guard';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { User } from './../user.decorator';
+import { CreateMemberDto } from './../member/member.dto';
+import { MemberService } from './../member/member.service';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { LocalAuthGuard } from '@/local-auth.guard';
+import { MemberEntity } from '@/model/member.entity';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+  constructor(
+    private memberService: MemberService,
+    private authService: AuthService,
+  ) {}
 
-    @UseGuards(LocalAuthGuard)
-    @Post('login')
-    async login(@Request() req) {
-        return this.authService.login(req.user);
-    }
+  @Post('register')
+  @HttpCode(HttpStatus.CREATED)
+  public async register(@Body() dto: CreateMemberDto) {
+    return await this.memberService.create(dto);
+  }
 
-    @UseGuards(JwtAuthGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
-        return req.user;
-    }
+  @Post('login')
+  @UseGuards(LocalAuthGuard)
+  public async login(@User() member: MemberEntity) {
+    return this.authService.login(member);
+  }
+
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  public async profile(@User() jwtPayload: JWTPayload) {
+    return jwtPayload;
+  }
 }

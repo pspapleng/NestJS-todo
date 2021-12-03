@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
+import { GlobalModule } from './global.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { configService } from './config/config.service';
-import { MembersModule } from './members/members.module';
 import { AuthModule } from './auth/auth.module';
-
+import { TodoModule } from './todo/todo.module';
 @Module({
   imports: [
-    TypeOrmModule.forRoot(configService.getTypeOrmConfig()), MembersModule, AuthModule
+    TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
+    GlobalModule,
+    AuthModule,
+    TodoModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}

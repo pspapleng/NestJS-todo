@@ -1,8 +1,16 @@
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { configService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  // ป้องกันการส่ง key เกินจากที่ระบุไว้ใน dto
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  await app.listen(configService.getPort(), () => {
+    const logger = new Logger('Bootstrap');
+    logger.log('🚀 Server Listening on port ' + configService.getPort());
+  });
 }
 bootstrap();

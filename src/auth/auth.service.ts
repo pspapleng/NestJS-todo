@@ -1,29 +1,32 @@
+import { LoginDto } from './auth.dto';
+import { MemberService } from '@/member/member.service';
+import { MemberEntity } from '@/model/member.entity';
 import { Injectable } from '@nestjs/common';
-import { configService } from '../config/config.service';
-import { AES, enc } from 'crypto-js';
-import { MembersDTO } from '../members/members.dto';
-import { MembersService } from '../members/members.service';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private membersService: MembersService,
-        private jwtService: JwtService
-    ) { }
+  constructor(
+    private memberService: MemberService,
+    private jwtService: JwtService,
+  ) {}
 
-    async validateUser(username: string, password: string): Promise<any> {
-        const member = await this.membersService.getByUsername(username)
-        if (member && AES.decrypt(member.password, configService.getSecret()).toString(enc.Utf8) === password) {
-            return MembersDTO.fromEntity(member);
-        }
-        return null;
-    }
+  public async login(member: MemberEntity) {
+    const jwtPayload = {
+      username: member.username,
+      name: member.name,
+      sub: member.id,
+    };
+    return this.jwtService.sign(jwtPayload);
+  }
 
-    async login(member: any) {
-        const payload = { username: member.username, sub: member.userId };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
+  public async validateMember(dto: LoginDto): Promise<MemberEntity> {
+    const member = await this.memberService.findByUsername(dto.username);
+    if (member) {
+      const comparePassword = await compare(dto.password, member.password);
+      if (comparePassword) return member;
     }
+    return null;
+  }
 }
