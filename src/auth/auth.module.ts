@@ -10,13 +10,7 @@ import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([MemberEntity]),
-    JwtModule.register({
-      secret: configService.getJwtSecret(),
-      signOptions: { expiresIn: '7d' },
-    }),
-  ],
+  imports: [],
   controllers: [AuthController],
   providers: [AuthService, MemberService, LocalStrategy, JwtStrategy],
 })
