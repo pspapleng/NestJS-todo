@@ -46,4 +46,9 @@ export class TodoEntity extends BaseEntity {
   @IsDate()
   @Column({ type: 'timestamptz', nullable: false })
   due_date: Date;
+
+  constructor(partial: Partial<TodoEntity>) {
+    super();
+    Object.assign(this, partial);
+  }
 }
