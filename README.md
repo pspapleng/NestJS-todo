@@ -16,7 +16,7 @@
 **Member**
 
 - [x] Register Member.
-- [x] X-Member-Token.
+- [x] X-Member-Token
 
 **Todo**
 
@@ -38,11 +38,11 @@
     git clone https://github.com/pspapleng/NestJS-todo.git
     npm install
     ```
-2.  Run Database As Container.
+2.  Run Database As Container
     ```
     docker-compose up -d
     ```
-3.  Run Project.
+3.  Run Project
     ```
     npm run start:dev
     ```
