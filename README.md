@@ -16,7 +16,7 @@
 **Member**
 
 - [x] Register Member.
-- [ ] X-Member-Token.
+- [x] X-Member-Token.
 
 **Todo**
 
