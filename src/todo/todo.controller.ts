@@ -1,4 +1,4 @@
-import { CreateTodoDto } from './todo.dto';
+import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { MemberEntity } from './../model/member.entity';
 import { JwtAuthGuard } from './../jwt-auth.guard';
 import { TodoService } from './todo.service';
@@ -7,6 +7,10 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
   Post,
   UseGuards,
   UseInterceptors,
@@ -25,6 +29,17 @@ export class TodoController {
     @Body() dto: CreateTodoDto,
   ) {
     return await this.todoService.create(member.id, dto);
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async update(
+    @User() member: MemberEntity,
+    @Param('id') id: TodoEntity['id'],
+    @Body() dto: UpdateTodoDto,
+  ) {
+    return await this.todoService.update(member.id, id, dto);
   }
 
   @Get()

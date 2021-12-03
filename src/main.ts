@@ -5,7 +5,8 @@ import { configService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  // ป้องกันการส่ง key เกินจากที่ระบุไว้ใน dto
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
   await app.listen(configService.getPort(), () => {
     const logger = new Logger('Bootstrap');
