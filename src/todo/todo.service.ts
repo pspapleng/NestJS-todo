@@ -66,7 +66,13 @@ export class TodoService {
       //   where: {
       //     due_date: MoreThanOrEqual(new Date()),
       //   },
-      relations: ['member'],
+      relations: ['member', 'assigned_members', 'assigned_members.member'],
+    });
+  }
+
+  public async findById(id: TodoEntity['id']): Promise<TodoEntity> {
+    return await this.todoRepository.findOne(id, {
+      relations: ['assigned_members', 'assigned_members.member'],
     });
   }
 }

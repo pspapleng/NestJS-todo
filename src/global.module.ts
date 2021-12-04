@@ -1,3 +1,4 @@
+import { AssignedMemberEntity } from './model/assignedMembers.entity';
 import { configService } from '@/config/config.service';
 import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
@@ -14,7 +15,7 @@ import { TodoEntity } from './model/todo.entity';
       secret: configService.getJwtSecret(),
       signOptions: { expiresIn: '7d' },
     }),
-    TypeOrmModule.forFeature([TodoEntity, MemberEntity]),
+    TypeOrmModule.forFeature([TodoEntity, MemberEntity, AssignedMemberEntity]),
     ThrottlerModule.forRoot({
       ttl: 60, // 60 sec
       limit: configService.getRateLimit(),
