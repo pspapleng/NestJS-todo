@@ -25,7 +25,7 @@
 - [x] Only todo **owner** can update their **title** and **description**.
 - [x] Only todo **owner** can change status.
 - [x] Only todo **owner** can delete todo(soft delete).
-- [ ] Only todo **owner** can assign todo to member.
+- [x] Only todo **owner** can assign member.
 - [ ] Send notification to all assigned member when **owner** delete **active** todo.
 - [ ] Run a **background scheduler** to notify all assigned members.
 
