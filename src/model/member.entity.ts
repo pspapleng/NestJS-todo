@@ -5,6 +5,9 @@ import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'members' })
 export class MemberEntity extends BaseEntity {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(255)
   @Column({ type: 'varchar', length: 255, nullable: false }) // typeORM
   name: string;
 
