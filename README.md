@@ -34,9 +34,9 @@
 - [x] Authorization --> UseGuards()
 - [x] Rate Limiting from header **X-Forwarded-For**
 
-## How To
+## Getting Started
 
-### Run Project
+### How to Run Project
 
 1.  Clone Project
 
@@ -55,7 +55,7 @@
     npm run start:dev
     ```
 
-### Run Migration
+### How to Run Migration
 
 1.  Generate Migration
     ```
