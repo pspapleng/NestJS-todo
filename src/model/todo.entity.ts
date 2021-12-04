@@ -1,3 +1,4 @@
+import { AssignedMemberEntity } from './assignedMembers.entity';
 import { Type } from 'class-transformer';
 import {
   IsDate,
@@ -6,7 +7,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { MemberEntity } from './member.entity';
 
@@ -21,6 +22,12 @@ export class TodoEntity extends BaseEntity {
   @ManyToOne(() => MemberEntity)
   @JoinColumn({ name: 'member_id' })
   member: MemberEntity;
+
+  @OneToMany(
+    () => AssignedMemberEntity,
+    (assignedMember) => assignedMember.todo,
+  )
+  assigned_members: AssignedMemberEntity[];
 
   @IsString()
   @IsNotEmpty()

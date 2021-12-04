@@ -1,3 +1,6 @@
+import { AssignMemberService } from './../assigned-member/assign-member.service';
+import { CreateAssignMemberDto } from './../assigned-member/assign-member.dto';
+import { ThrottlerBehindProxyGuard } from './../throttler-behind-proxy.guard';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { MemberEntity } from './../model/member.entity';
 import { JwtAuthGuard } from './../jwt-auth.guard';
@@ -10,6 +13,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  InternalServerErrorException,
   Param,
   Patch,
   Post,
@@ -21,10 +25,13 @@ import { TodoEntity } from '@/model/todo.entity';
 
 @Controller('todo')
 export class TodoController {
-  constructor(private todoService: TodoService) {}
+  constructor(
+    private todoService: TodoService,
+    private assignMemberService: AssignMemberService,
+  ) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, ThrottlerBehindProxyGuard)
   public async create(
     @User() member: MemberEntity,
     @Body() dto: CreateTodoDto,
@@ -60,5 +67,33 @@ export class TodoController {
     return await this.todoService
       .getAll()
       .then((e) => e.map((todo) => new TodoEntity(todo)));
+  }
+
+  @Post('/:id/member')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async assignMember(
+    @Param('id') id: TodoEntity['id'],
+    @Body() dto: CreateAssignMemberDto,
+  ) {
+    return await this.assignMemberService
+      .createMany(id, dto)
+      .catch(({ message }) => {
+        throw new InternalServerErrorException(message);
+      });
+  }
+
+  @Delete('/:id/member')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async unassignMember(
+    @Param('id') id: TodoEntity['id'],
+    @Body() dto: CreateAssignMemberDto,
+  ) {
+    return await this.assignMemberService
+      .remove(id, dto)
+      .catch(({ message }) => {
+        throw new InternalServerErrorException(message);
+      });
   }
 }
