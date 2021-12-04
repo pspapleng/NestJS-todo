@@ -1,3 +1,4 @@
+import { ThrottlerBehindProxyGuard } from './../throttler-behind-proxy.guard';
 import { JWTPayload } from './jwt.strategy';
 import { JwtAuthGuard } from './../jwt-auth.guard';
 import { AuthService } from './auth.service';
@@ -25,6 +26,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(ThrottlerBehindProxyGuard)
   public async register(@Body() dto: CreateMemberDto) {
     return await this.memberService.create(dto);
   }

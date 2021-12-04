@@ -1,3 +1,4 @@
+import { ThrottlerBehindProxyGuard } from './../throttler-behind-proxy.guard';
 import { CreateTodoDto, UpdateTodoDto } from './todo.dto';
 import { MemberEntity } from './../model/member.entity';
 import { JwtAuthGuard } from './../jwt-auth.guard';
@@ -24,7 +25,7 @@ export class TodoController {
   constructor(private todoService: TodoService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, ThrottlerBehindProxyGuard)
   public async create(
     @User() member: MemberEntity,
     @Body() dto: CreateTodoDto,
