@@ -32,6 +32,10 @@ class ConfigService {
     return 8;
   }
 
+  public getRateLimit() {
+    return parseInt(this.getValue('RATE_LIMIT_ALLOW', true));
+  }
+
   public isProduction() {
     const mode = this.getValue('MODE', false);
     return mode != 'DEV';
