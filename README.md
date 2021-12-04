@@ -16,7 +16,7 @@
 **Member**
 
 - [x] Register Member.
-- [x] X-Member-Token
+- [x] **X-Member-Token**
 
 **Todo**
 
@@ -29,15 +29,23 @@
 - [ ] Send notification to all assigned member when **owner** delete **active** todo.
 - [ ] Run a **background scheduler** to notify all assigned members.
 
+**Other**
+
+- [x] Authorization --> UseGuards()
+- [x] Rate Limiting from header **X-Forwarded-For**
+
 ## How To
 
 ### Run Project
 
 1.  Clone Project
+
     ```
     git clone https://github.com/pspapleng/NestJS-todo.git
+
     npm install
     ```
+
 2.  Run Database As Container
     ```
     docker-compose up -d
@@ -45,6 +53,17 @@
 3.  Run Project
     ```
     npm run start:dev
+    ```
+
+### Run Migration
+
+1.  Generate Migration
+    ```
+    npm run typeorm:migration:generate -- init
+    ```
+2.  Run Migration
+    ```
+    npm run typeorm:migration:run
     ```
 
 ---
