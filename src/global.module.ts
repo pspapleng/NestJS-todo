@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { MemberEntity } from './model/member.entity';
 import { TodoEntity } from './model/todo.entity';
+import { BullModule } from '@nestjs/bull';
 
 @Global()
 @Module({
@@ -20,9 +21,15 @@ import { TodoEntity } from './model/todo.entity';
       ttl: 60, // 60 sec
       limit: configService.getRateLimit(),
     }),
+    BullModule.forRoot({
+      redis: configService.getRedisConfig(),
+    }),
+    BullModule.registerQueue({
+      name: 'notification',
+    }),
   ],
   controllers: [],
   providers: [JwtStrategy],
-  exports: [JwtModule, TypeOrmModule, ThrottlerModule],
+  exports: [JwtModule, TypeOrmModule, ThrottlerModule, BullModule],
 })
 export class GlobalModule {}
