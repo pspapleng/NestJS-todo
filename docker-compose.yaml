@@ -19,6 +19,16 @@ services:
       - 8081:80
     volumes:
       - pgadmin_pv:/var/lib/pgadmin
+  redis:
+    image: redis:6.2
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - ${REDIS_PORT}:6379
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - 8001:8001
 
 volumes:
   pgadmin_pv:

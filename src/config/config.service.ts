@@ -36,6 +36,14 @@ class ConfigService {
     return parseInt(this.getValue('RATE_LIMIT_ALLOW', true));
   }
 
+  public getRedisConfig() {
+    return {
+      host: this.getValue('REDIS_HOST'),
+      port: parseInt(this.getValue('REDIS_PORT')),
+      password: this.getValue('REDIS_PASSWORD'),
+    };
+  }
+
   public isProduction() {
     const mode = this.getValue('MODE', false);
     return mode != 'DEV';
