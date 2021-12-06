@@ -36,7 +36,7 @@
 
 ### API Documentation
 
-[ScaMo-todo](https://documenter.getpostman.com/view/17117876/UVJigDfV)
+- [ScaMo-todo](https://documenter.getpostman.com/view/17117876/UVJigDfV)
 
 ---
 
@@ -107,7 +107,7 @@ npm i --save-dev nodemon ts-node
 }
 ```
 
-3. แก้ไข scripts ใน package.json ส่วนของ `start:dev`
+3. แก้ไข scripts ใน package.json ส่วนของ **start:dev**
 
 ```
 "start:dev": "nodemon --config nodemon.json",
@@ -123,7 +123,7 @@ npm i --save-dev nodemon ts-node
 npm install --save @nestjs/typeorm typeorm pg dotenv
 ```
 
-2. create `.env`
+2. สร้างไฟล์ `.env`
 
 ```
 PORT=3000
@@ -242,7 +242,7 @@ export class AppModule {}
 
 ### Run Postgres Database and PG Admin with docker-compose
 
-1. create `docker-compose.yaml`
+1. สร้างไฟล์ `docker-compose.yaml`
 
 ```yaml
 version: '3.7'
@@ -304,7 +304,7 @@ fs.writeFileSync(
   "typeorm:migration:revert": "npm run typeorm -- migration:revert"
 ```
 
-3. รันคำสั่ง เพื่อสร้างไฟล์ ormconfig.json
+3. รันคำสั่ง เพื่อสร้างไฟล์ **ormconfig.json**
 
 ```
   npm run pretypeorm
