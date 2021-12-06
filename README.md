@@ -34,7 +34,9 @@
 - [x] Authorization --> UseGuards()
 - [x] Rate Limiting from header **X-Forwarded-For**
 
-### [API Documentation] (https://documenter.getpostman.com/view/17117876/UVJigDfV)
+### API Documentation
+
+[ScaMo-todo](https://documenter.getpostman.com/view/17117876/UVJigDfV)
 
 ---
 
@@ -93,7 +95,7 @@ nest new project-name
 npm i --save-dev nodemon ts-node
 ```
 
-2. สร้างไฟล์ชื่อ **nodemon.json** ที่ตำแหน่งเดียวกับ package.json
+2. สร้างไฟล์ชื่อ `nodemon.json` ที่ตำแหน่งเดียวกับ package.json
 
 ```json
 {
@@ -105,7 +107,7 @@ npm i --save-dev nodemon ts-node
 }
 ```
 
-3. แก้ไข scripts ใน package.json ส่วนของ **start:dev**
+3. แก้ไข scripts ใน package.json ส่วนของ `start:dev`
 
 ```
 "start:dev": "nodemon --config nodemon.json",
@@ -121,7 +123,7 @@ npm i --save-dev nodemon ts-node
 npm install --save @nestjs/typeorm typeorm pg dotenv
 ```
 
-2. create **.env**
+2. create `.env`
 
 ```
 PORT=3000
@@ -135,7 +137,7 @@ POSTGRES_PASSWORD=changme
 POSTGRES_DATABASE=changme
 ```
 
-3. สร้างไฟล์ชื่อ **src/config/config.server.ts** สำหรับจัดการการตั้งค่าจาก environment variable(.env)
+3. สร้างไฟล์ชื่อ `src/config/config.server.ts` สำหรับจัดการการตั้งค่าจาก environment variable(.env)
 
 ```typescript
 import * as dotenv from 'dotenv';
@@ -215,7 +217,7 @@ const configService = new ConfigService(process.env).ensureValues([
 export { configService };
 ```
 
-4. เรียกใช้งาน typeorm และ configService ใน **app.module.ts**
+4. เรียกใช้งาน typeorm และ configService ใน `app.module.ts`
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -240,7 +242,7 @@ export class AppModule {}
 
 ### Run Postgres Database and PG Admin with docker-compose
 
-1. create docker-compose.yaml
+1. create `docker-compose.yaml`
 
 ```yaml
 version: '3.7'
@@ -279,9 +281,9 @@ volumes:
 
 ### Database Migration
 
-1. สร้างไฟล์ **src/scripts/write-type-orm-config.ts** เพื่อสร้างไฟล์ **ormconfig.json** ในตำแหน่งเดียวกับ package.json
+1. สร้างไฟล์ `src/scripts/write-type-orm-config.ts` เพื่อสร้างไฟล์ `ormconfig.json` ในตำแหน่งเดียวกับ package.json
 
-- เนื่องจากเราทำ config เป็น configServer ทำให้ typeorm cli ไม่สามารถอ่านได้ ทำให้ typeorm cli ต้องอ่านการตั้งค่าจากไฟล์ **ormconfig.json**
+- เนื่องจากเราทำ config เป็น configServer ทำให้ typeorm cli ไม่สามารถอ่านได้ ทำให้ typeorm cli ต้องอ่านการตั้งค่าจากไฟล์ `ormconfig.json`
 
 ```typescript
 import { configService } from '../config/config.service';
@@ -308,7 +310,7 @@ fs.writeFileSync(
   npm run pretypeorm
 ```
 
-4. สร้างไฟล์ **src/model/base.entity.ts** เพื่อระบุ column ที่ทุก table ต้องมีเหมือนกัน
+4. สร้างไฟล์ `src/model/base.entity.ts` เพื่อระบุ column ที่ทุก table ต้องมีเหมือนกัน
 
 ```typescript
 import { Exclude } from 'class-transformer';
@@ -345,7 +347,7 @@ export abstract class BaseEntity {
 }
 ```
 
-5. สร้างไฟล์ **model/member.entity.ts**
+5. สร้างไฟล์ `model/member.entity.ts`
 
 ```typescript
 import { Exclude } from 'class-transformer';
@@ -386,7 +388,7 @@ export class MemberEntity extends BaseEntity {
 }
 ```
 
-6. สร้างไฟล์ **model/todo.entity.ts**
+6. สร้างไฟล์ `model/todo.entity.ts`
 
 ```typescript
 import { Type } from 'class-transformer';
@@ -445,7 +447,7 @@ export class TodoEntity extends BaseEntity {
 }
 ```
 
-7. สร้างไฟล์ **model/assignedMembers.entity.ts**
+7. สร้างไฟล์ `model/assignedMembers.entity.ts`
 
 ```typescript
 import { Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
