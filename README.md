@@ -275,9 +275,9 @@ volumes:
 
 ### Database Migration
 
-1. สร้างไฟล์ **src/scripts/write-type-orm-config.ts** เพื่อสร้างไฟล์ ormconfig.json ในตำแหน่งเดียวกับ package.json
+1. สร้างไฟล์ **src/scripts/write-type-orm-config.ts** เพื่อสร้างไฟล์ **ormconfig.json** ในตำแหน่งเดียวกับ package.json
 
-เนื่องจากเราทำ config เป็น configServer ทำให้ typeorm cli ไม่สามารถอ่านได้ -> typeorm cli จึงต้องอ่านการตั้งค่าจากไฟล์ **ormconfig.json**
+- เนื่องจากเราทำ config เป็น configServer ทำให้ typeorm cli ไม่สามารถอ่านได้ ทำให้ typeorm cli ต้องอ่านการตั้งค่าจากไฟล์ **ormconfig.json**
 
 ```typescript
 import { configService } from '../config/config.service';
@@ -473,3 +473,5 @@ export class AssignedMemberEntity extends BaseEntity {
 ```
   npm run typeorm:migration:run
 ```
+
+---
